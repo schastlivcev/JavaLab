@@ -1,0 +1,176 @@
+:root {
+		--bg-color: #eee;
+		--dark-blue: #0c1554;
+		--light-blue: #acb4ee;
+		--active-white: #fff;
+		--alert-red: #f9cdcd;
+		--alert-dark-red: #4a0000;
+		--active-black: #222;
+		--active-grey: #888;
+}
+.iconstl {
+	font-size: 1.6rem; 
+	color: var(--light-blue);
+}
+.toolbar .iconstl:hover {
+	color: var(--dark-blue);
+}
+.navbar-brand:hover i, .navbar-brand:hover b {
+	color: var(--active-white);
+}
+.navbar div a:hover {
+	text-decoration: none;
+}
+.navbar div a:hover b, .navbar div a:hover i {
+	color: var(--active-white);
+}
+.navbar div a b {
+	color: var(--light-blue);
+}
+.card .btn:hover i {
+	color: var(--dark-blue);
+}
+.darkblue {
+	color: var(--dark-blue);
+}
+.lightblue {
+	color: var(--light-blue);
+}
+.activewhite {
+	color: var(--active-white);
+}
+.activegrey {
+	color: var(--active-grey);
+}
+.cardhead {
+	background-color: var(--dark-blue);
+	border-top-right-radius: 6px; 
+	border-top-left-radius: 6px;
+	border-width: 2px;
+	padding: 10px;
+	margin: 0;
+}
+.cardcent {
+	color: var(--active-black);
+	padding: 0 10px 5px 10px;
+	margin: 0;
+}
+.cardfoot {
+	color: var(--alert-dark-red);
+	background-color: var(--alert-red);
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	border-width: 2px;
+	padding: 5px 10px 10px 10px;
+	margin: 0;
+}
+.cardfoot hr {
+	margin: 10px 0 0 0;
+	border-width: 4px;
+	border-color: var(--alert-dark-red);
+}
+.btnwhite:hover b {
+	color: var(--dark-blue);
+}
+.btnlight {
+	background-color: var(--light-blue);
+	color: var(--dark-blue);
+	border-width: 0;
+	padding: 1px;
+	margin: 1px;
+}
+.btnlight:hover {
+	background-color: var(--dark-blue);
+	color: #fff;
+}
+.input-group-text {
+	background-color: var(--light-blue);
+	color: var(--dark-blue);
+}
+.gendinp {
+	margin-top: 0.72rem;
+	margin-left: -1rem;
+}
+.agrinp {
+	margin-top: 0.68rem;
+	margin-left: -1rem;
+}
+body {
+	background-color: var(--bg-color);
+	font-size: 1.25rem;
+	position: relative;
+}
+
+.navbar {
+	background-color: var(--dark-blue);
+}
+.navbar-brand {
+	position: absolute;
+}
+.wid {
+	max-width: 55rem;
+}
+.widwin {
+	max-width: 35rem;
+}
+
+.profilepic {
+	display: inline-block;
+	max-height: 9rem;
+	width: 11rem;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.profilepic img {
+	margin: 0;
+	max-width: 100%;
+}
+
+.form-control.addheading {
+	color: var(--active-black);
+	font-weight: 500;
+	height: auto;
+	font-size: x-large;
+	font-family: "Segoe UI";
+	border-width: 0;
+	padding: 0;
+}
+.form-control.addheading::placeholder {
+	color: var(--light-blue);
+}
+p {
+	margin: 0;
+}
+.postcard img {
+	display: block;
+	max-height: 40rem;
+	max-width: 100%;
+	margin: 10px auto 10px auto;
+}
+.card {
+	border-radius: 8px;
+	border-width: 2px;
+}
+hr {
+	margin: 0;
+	border-width: 2px;
+}
+h4 {
+	margin-bottom: 2px;
+}
+
+.pagealert {
+	display: none;
+	max-width: 55rem;
+}
+.imgmask {
+	margin-right: 0.5rem;
+	display: inline-block;
+    width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.imgmask img {
+	max-width: 100%;
+}
