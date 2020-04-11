@@ -60,26 +60,6 @@ public class AuthServiceImpl implements AuthService {
         return signUpFromClassWithErrors(regInfo, new ArrayList<>());
     }
 
-    private Dto signUpFromClassWithErrors(RegInfo regInfo, List<String> errors) {
-        verifySignUpForm(regInfo, errors);
-        if(errors.isEmpty()) {
-            usersRepository.save(User.builder()
-                    .email(regInfo.getEmail())
-                    .password(passwordEncoder.encode(regInfo.getPassword()))
-                    .name(regInfo.getName())
-                    .surname(regInfo.getSurname())
-                    .isMan(regInfo.isSex())
-                    .birthday(regInfo.getBirthday())
-                    .country(regInfo.getCountry())
-                    .role(Role.USER)
-                    .verified(true)
-                    .build());
-            return new WebDto(Status.USER_REG_SUCCESS);
-        } else {
-            return new WebDto(Status.USER_REG_ERROR, "errors", errors);
-        }
-    }
-
     @Override
     public Dto signUpFromMap(Map<String, String> formAttributes) {
         List<String> errors = new ArrayList<>();
@@ -99,6 +79,26 @@ public class AuthServiceImpl implements AuthService {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             errors.add("DATA_UNACCEPTABLE");
+            return new WebDto(Status.USER_REG_ERROR, "errors", errors);
+        }
+    }
+
+    private Dto signUpFromClassWithErrors(RegInfo regInfo, List<String> errors) {
+        verifySignUpForm(regInfo, errors);
+        if(errors.isEmpty()) {
+            usersRepository.save(User.builder()
+                    .email(regInfo.getEmail())
+                    .password(passwordEncoder.encode(regInfo.getPassword()))
+                    .name(regInfo.getName())
+                    .surname(regInfo.getSurname())
+                    .isMan(regInfo.isSex())
+                    .birthday(regInfo.getBirthday())
+                    .country(regInfo.getCountry())
+                    .role(Role.USER)
+                    .verified(true)
+                    .build());
+            return new WebDto(Status.USER_REG_SUCCESS);
+        } else {
             return new WebDto(Status.USER_REG_ERROR, "errors", errors);
         }
     }
@@ -126,13 +126,13 @@ public class AuthServiceImpl implements AuthService {
 
         if(regInfo.getName() == null || regInfo.getName().equals("")) {
             errors.add("NAME_EMPTY");
-        } else if(!regInfo.getName().trim().equals(regInfo.getName()) || regInfo.getName().length() < 2) {
+        } else if(!regInfo.getName().trim().equals(regInfo.getName()) || regInfo.getName().length() < 1 || regInfo.getName().length() > 30) {
             errors.add("NAME_UNACCEPTABLE");
         }
 
         if(regInfo.getSurname() == null || regInfo.getSurname().equals("")) {
             errors.add("SURNAME_EMPTY");
-        } else if(!regInfo.getSurname().trim().equals(regInfo.getSurname()) || regInfo.getSurname().length() < 2) {
+        } else if(!regInfo.getSurname().trim().equals(regInfo.getSurname()) || regInfo.getSurname().length() < 1 || regInfo.getSurname().length() > 60) {
             errors.add("SURNAME_UNACCEPTABLE");
         }
 

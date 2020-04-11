@@ -18,9 +18,9 @@
     </session-timeout>
   </session-config>
 
+  <!-- PROFILE: jpa | template -->
   <context-param>
     <param-name>spring.profiles.active</param-name>
-    <!-- jpa | template -->
     <param-value>jpa</param-value>
   </context-param>
 

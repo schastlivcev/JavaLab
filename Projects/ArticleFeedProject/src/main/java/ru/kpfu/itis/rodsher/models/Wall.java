@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -21,16 +22,17 @@ public class Wall {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "article_id", nullable = false)
     private Article article;
-    @Column
+    @Column(nullable = false)
     private boolean reply;
-    @Column
+    @Column(nullable = false)
     private boolean bookmark;
     @Column(name = "created_at")
+    @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp
     private Timestamp createdAt;
 }

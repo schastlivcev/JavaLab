@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -45,7 +46,8 @@ public class User {
     private Role role;
     @Column(nullable = false)
     private Boolean verified;
-    @Column(name = "created_at")
+    @Column(name = "created_at")//, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP")
+    @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp
     private Timestamp createdAt;
 }

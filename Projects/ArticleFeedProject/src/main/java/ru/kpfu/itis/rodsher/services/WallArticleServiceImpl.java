@@ -1,7 +1,7 @@
 package ru.kpfu.itis.rodsher.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.kpfu.itis.rodsher.dto.Dto;
 import ru.kpfu.itis.rodsher.dto.Status;
 import ru.kpfu.itis.rodsher.dto.WebDto;
@@ -13,7 +13,7 @@ import ru.kpfu.itis.rodsher.repositories.WallsRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class WallArticleServiceImpl implements WallArticleService {
     @Autowired
     private ArticlesRepository articlesRepository;
@@ -23,10 +23,13 @@ public class WallArticleServiceImpl implements WallArticleService {
 
     @Override
     public Dto addArticle(Article article) {
-        if(articlesRepository.save(article) != null
-                && wallsRepository.save(new Wall(null, article.getUser(),
-                article, false, false, null)) != null) {
-            return new WebDto(Status.ARTICLE_ADD_SUCCESS);
+        Long id = articlesRepository.save(article);
+        if(id != null) {
+            article.setId(id);
+            if(wallsRepository.save(new Wall(null, article.getUser(),
+                    article, false, false, null)) != null) {
+                return new WebDto(Status.ARTICLE_ADD_SUCCESS);
+            }
         }
         return new WebDto(Status.ARTICLE_ADD_ERROR);
     }

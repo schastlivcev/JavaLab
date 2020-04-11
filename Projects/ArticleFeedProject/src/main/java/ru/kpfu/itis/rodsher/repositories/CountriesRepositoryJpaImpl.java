@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 @Profile("jpa")
 public class CountriesRepositoryJpaImpl implements CountriesRepository {
-    private static final String FIND_ALL = "SELECT c FROM Country c";
+    private static final String FIND_ALL = "SELECT c FROM Country c ORDER BY c.nameRu DESC";
     private static final String FIND_BY_NAME_RU = "SELECT c FROM Country c WHERE c.nameRu = :name";
 
     @PersistenceContext

@@ -88,7 +88,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="nm"><b>Имя</b></span>
                 </div>
-                <input type="text" maxlength="30" minlength="2" class="form-control" name="name" placeholder="без пробелов"
+                <input type="text" maxlength="30" minlength="1" class="form-control" name="name" placeholder="без пробелов"
                        aria-describedby="nm" <#if name??>value="${name}"</#if>>
             </div>
 
@@ -107,7 +107,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="surnm"><b>Фамилия</b></span>
                 </div>
-                <input type="text" maxlength="30" minlength="2" class="form-control" name="surname" placeholder="без пробелов"
+                <input type="text" maxlength="30" minlength="1" class="form-control" name="surname" placeholder="без пробелов"
                        aria-describedby="surnm" <#if surname??>value="${surname}"</#if>>
             </div>
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @Column(name = "group_id")
     private Integer groupId;
@@ -30,6 +31,7 @@ public class Article {
     @Column
     private String content;
     @Column(name = "created_at")
+    @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp
     private Timestamp createdAt;
 }
