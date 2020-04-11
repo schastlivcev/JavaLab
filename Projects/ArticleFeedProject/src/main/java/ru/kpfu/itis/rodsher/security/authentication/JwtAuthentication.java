@@ -1,4 +1,4 @@
-package ru.kpfu.itis.rodsher.security.config.authentication;
+package ru.kpfu.itis.rodsher.security.authentication;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

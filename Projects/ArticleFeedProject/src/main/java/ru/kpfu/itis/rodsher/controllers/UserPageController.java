@@ -5,14 +5,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.kpfu.itis.rodsher.dto.Dto;
 import ru.kpfu.itis.rodsher.dto.Status;
 import ru.kpfu.itis.rodsher.models.User;
 import ru.kpfu.itis.rodsher.models.Wall;
-import ru.kpfu.itis.rodsher.security.config.details.UserDetailsImpl;
+import ru.kpfu.itis.rodsher.security.details.UserDetailsImpl;
 import ru.kpfu.itis.rodsher.services.UserService;
 import ru.kpfu.itis.rodsher.services.WallArticleService;
 

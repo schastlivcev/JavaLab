@@ -1,4 +1,4 @@
-package ru.kpfu.itis.rodsher.security.config.provider;
+package ru.kpfu.itis.rodsher.security.provider;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,10 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ru.kpfu.itis.rodsher.models.User;
-import ru.kpfu.itis.rodsher.security.config.authentication.JwtAuthentication;
-import ru.kpfu.itis.rodsher.security.config.details.UserDetailsImpl;
-import ru.kpfu.itis.rodsher.security.config.details.UserDetailsJwtImpl;
+import ru.kpfu.itis.rodsher.security.authentication.JwtAuthentication;
+import ru.kpfu.itis.rodsher.security.details.UserDetailsJwtImpl;
 
 @Component("jwtAuthenticationProvider")
 public class JwtAuthenticationProvider implements AuthenticationProvider {

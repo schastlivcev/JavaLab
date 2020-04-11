@@ -1,10 +1,10 @@
-package ru.kpfu.itis.rodsher.security.config.filter;
+package ru.kpfu.itis.rodsher.security.filter;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
-import ru.kpfu.itis.rodsher.security.config.authentication.JwtAuthentication;
+import ru.kpfu.itis.rodsher.security.authentication.JwtAuthentication;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

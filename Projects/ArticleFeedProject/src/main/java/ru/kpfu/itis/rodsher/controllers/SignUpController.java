@@ -8,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.rodsher.dto.Dto;
 import ru.kpfu.itis.rodsher.dto.Status;
-import ru.kpfu.itis.rodsher.security.config.details.UserDetailsImpl;
+import ru.kpfu.itis.rodsher.security.details.UserDetailsImpl;
 import ru.kpfu.itis.rodsher.services.AuthService;
 import ru.kpfu.itis.rodsher.services.ContentFiller;
 

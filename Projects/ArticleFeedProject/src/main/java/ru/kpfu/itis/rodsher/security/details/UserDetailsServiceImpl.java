@@ -1,4 +1,4 @@
-package ru.kpfu.itis.rodsher.security.config.details;
+package ru.kpfu.itis.rodsher.security.details;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

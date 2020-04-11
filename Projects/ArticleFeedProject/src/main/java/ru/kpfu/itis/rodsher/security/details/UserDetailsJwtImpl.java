@@ -1,34 +1,36 @@
-package ru.kpfu.itis.rodsher.security.config.details;
+package ru.kpfu.itis.rodsher.security.details;
 
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.kpfu.itis.rodsher.models.User;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImpl implements UserDetails {
-    private User user;
-
-    public UserDetailsImpl(User user) {
-        this.user = user;
-    }
+@Data
+@Builder
+public class UserDetailsJwtImpl implements UserDetails {
+    private Long id;
+    private String role;
+    private String name;
+    private String surname;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toString());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
         return Collections.singletonList(authority);
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return this.getName();
     }
 
     @Override
@@ -48,14 +50,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getVerified();
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Long getId() {
-        return user.getId();
+        return true;
     }
 }

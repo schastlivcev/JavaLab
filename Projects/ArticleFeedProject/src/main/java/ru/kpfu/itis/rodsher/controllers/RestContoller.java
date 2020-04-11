@@ -2,9 +2,7 @@ package ru.kpfu.itis.rodsher.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.rodsher.dto.Dto;
@@ -12,12 +10,11 @@ import ru.kpfu.itis.rodsher.dto.Status;
 import ru.kpfu.itis.rodsher.dto.WebDto;
 import ru.kpfu.itis.rodsher.models.RegInfo;
 import ru.kpfu.itis.rodsher.models.User;
-import ru.kpfu.itis.rodsher.security.config.details.UserDetailsJwtImpl;
+import ru.kpfu.itis.rodsher.security.details.UserDetailsJwtImpl;
 import ru.kpfu.itis.rodsher.services.AuthService;
 import ru.kpfu.itis.rodsher.services.UserService;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
