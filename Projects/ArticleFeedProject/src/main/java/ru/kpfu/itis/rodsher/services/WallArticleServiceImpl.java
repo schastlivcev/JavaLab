@@ -45,7 +45,7 @@ public class WallArticleServiceImpl implements WallArticleService {
 
     @Override
     public Dto loadArticlesByUserId(Long userId) {
-        return new WebDto(Status.ARTICLE_LOAD_BY_USER_ID_SUCCESS, "walls", (List<Wall>) wallsRepository.findByUserId(userId));
+        return new WebDto(Status.ARTICLE_LOAD_BY_USER_ID_SUCCESS, "walls", wallsRepository.findByUserId(userId));
     }
 
     @Override

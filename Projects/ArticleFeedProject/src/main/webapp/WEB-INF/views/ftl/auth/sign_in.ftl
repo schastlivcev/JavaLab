@@ -1,6 +1,6 @@
 <#import "*/page.ftl" as p>
 <@p.page title="Вход - ArticleFeed">
-    <div class="d-flex flex-column m-2 justify-content-center min-vh-100 widwin mx-auto">
+    <div class="d-flex flex-column m-2 justify-content-center widwin mx-auto" style="height: 98vh">
         <form class="card text-center" method="post" accept-charset="UTF-8">
             <h4 class="cardhead activewhite"><b>ArticleFeed</b><i class="fas fa-rss pl-2 iconstl activewhite"></i></h4>
             <h4 class="mt-1">Вход</h4>
@@ -48,7 +48,7 @@
 <#--                <label class="form-check-label darkblue" for="rem"><b>Запомнить меня</b></label>-->
 <#--            </div>-->
 
-            <button type="submit" class="btn btnlight m-2 p-2 w-auto"><b>Отправить</b></button>
+            <button type="submit" class="btn btnlight m-2 p-2 w-auto"><b>Войти</b></button>
 
         </form>
     </div>

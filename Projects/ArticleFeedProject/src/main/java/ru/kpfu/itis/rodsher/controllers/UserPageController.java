@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.kpfu.itis.rodsher.dto.Dto;
 import ru.kpfu.itis.rodsher.dto.Status;
+import ru.kpfu.itis.rodsher.models.Channel;
+import ru.kpfu.itis.rodsher.models.Friends;
 import ru.kpfu.itis.rodsher.models.User;
 import ru.kpfu.itis.rodsher.models.Wall;
 import ru.kpfu.itis.rodsher.security.details.UserDetailsImpl;
+import ru.kpfu.itis.rodsher.services.ChatService;
 import ru.kpfu.itis.rodsher.services.UserService;
 import ru.kpfu.itis.rodsher.services.WallArticleService;
 
@@ -24,6 +27,9 @@ public class UserPageController {
 
     @Autowired
     private WallArticleService wallArticleService;
+
+    @Autowired
+    private ChatService chatService;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/user")
@@ -42,10 +48,19 @@ public class UserPageController {
                 Dto dto = userService.loadUser(id);
                 if(!dto.getStatus().equals(Status.USER_LOAD_SUCCESS)) {
                     map.put("status", 404);
-                    map.put("text", "Извините, такой страницы не существует. Пользователя с таким id не существует.");
+                    map.put("text", "Извините, пользователя с таким id не существует.");
                     return "error_page";
                 }
                 map.put("user", (User) dto.get("user"));
+                dto = userService.checkFriendship(userDetails.getId(), id);
+                if(dto.getStatus().equals(Status.FRIENDSHIP_PRESENTED)) {
+                    map.put("friends", (Friends) dto.get("friends"));
+                }
+                dto = chatService.checkIfChannelExistsForUsers(userDetails.getId(), id);
+                if(dto.getStatus().equals(Status.CHANNEL_EXISTS_FOR_USERS)) {
+                    List<Channel> channels = (List<Channel>) dto.get("channels");
+                    map.put("channelId", channels.get(0).getId());
+                }
             }
             map.put("me", userDetails.getUser());
             Dto dto = wallArticleService.loadArticlesByUserId(id);
@@ -54,7 +69,6 @@ public class UserPageController {
                 map.put("text", "Ошибка при загрузке страницы");
                 return "error_page";
             }
-            System.out.println("################" + dto.get("walls") + " " + dto.getStatus());
             map.put("walls", (List<Wall>) dto.get("walls"));
             return "main/user_page";
         } catch(NumberFormatException e) {

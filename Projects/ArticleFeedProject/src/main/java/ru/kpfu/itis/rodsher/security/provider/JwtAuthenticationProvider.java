@@ -20,13 +20,12 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String token = authentication.getName();
-
         Claims claims;
         try {
             claims =  Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("Bad token");
+            throw new AuthenticationCredentialsNotFoundException("Bad token.");
         }
         UserDetails userDetails = UserDetailsJwtImpl.builder()
                 .id(Long.parseLong(claims.get("sub", String.class)))

@@ -32,7 +32,6 @@ public class ArticleController {
     public ResponseEntity<String> addArticle(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                              @RequestParam(value = "heading", required = false) String heading,
                                              @RequestBody(required = false) String content) {
-        System.out.println("heading:" + heading + "\ncontent:" + content);
         Dto dto = wallArticleService.addArticle(Article.builder()
                 .user(userDetails.getUser())
                 .heading(heading.trim().equals("") ? null : heading)
@@ -48,7 +47,6 @@ public class ArticleController {
     @DeleteMapping("/article/{article-id}")
     public ResponseEntity<String> deleteArticle(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                 @PathVariable("article-id") String articleId) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         try {
             long id = Long.parseLong(articleId);
             Dto dto = wallArticleService.deleteArticle(id);

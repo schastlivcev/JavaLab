@@ -14,10 +14,10 @@
     <title>${title}</title>
 </head>
 <body>
-<#nested/>
 <script src="${rc.getContextPath()}/static/js/jquery-3.4.1.min.js"></script>
 <script src="${rc.getContextPath()}/static/js/popper.min.js"></script>
 <script src="${rc.getContextPath()}/static/js/bootstrap.min.js"></script>
+<#nested/>
 </body>
 </html>
 </#macro>
@@ -110,4 +110,100 @@
         <h5>Не удалось добавить</h5>
     </div>
     <script src="${rc.getContextPath()}/static/js/article.js"></script>
+</#macro>
+
+<#macro friend_card friends me card=true>
+    <#if friends.userSender.id == me.id>
+        <#assign friend = friends.userRecipient>
+    <#else>
+        <#assign friend = friends.userSender>
+    </#if>
+
+    <#if card == true>
+        <div class="card m-1 p-2 friend">
+    </#if>
+    <!-- CARD HEADER ///////////////////////////////////////////////////////////////// -->
+    <div class="d-flex">
+        <div class="imgmask">
+            <#if !friend.image??>
+                <img src="${rc.getContextPath()}/static/defaults/user_image.png">
+            <#else>
+            <#-- CHANGE -->
+                <img src="${friend.image}">
+            </#if>
+        </div>
+
+        <div class="d-flex flex-column w-100">
+            <a href="${rc.getContextPath()}/user/${friend.id}"><b class="darkblue">${friend.name} ${friend.surname}</b></a>
+            <hr class="m-0">
+            <#if friend.status??><h5 class="activegrey m-0">${friend.status}</h5><#else><h5 class="activegrey m-0"/></#if>
+        </div>
+
+<#--        <#if friends.status == "REQUESTED" && friend.id == friends.userRecipient.id>-->
+<#--            <hr class="mb-2 mt-0">-->
+<#--            <form id="friendship" method="post" action="/friendship">-->
+<#--                <input type="hidden" name="friend_id" value="${friend.id}">-->
+<#--                <button type="submit" name="status" value="CANCEL" class="btn ml-2 px-0 pb-1 mb-1 btnwhite"><b class="lightblue">Отменить заявку</b></button>-->
+<#--            </form>-->
+<#--        <#elseif friends.status == "REQUESTED" && friend.id == friends.userSender.id>-->
+<#--            <hr class="mb-2 mt-0">-->
+<#--            <form id="friendship" method="post" action="/friendship">-->
+<#--                <input type="hidden" name="friend_id" value="${friend.id}">-->
+<#--                <button type="submit" name="status" value="ACCEPT" class="px-3 ml-2 pb-1 mb-1 btn btnlight"><b>Принять заявку</b></button>-->
+<#--            </form>-->
+<#--        </#if>-->
+
+    </div>
+    <!-- CARD HEADER END////////////////////////////////////////////////////////////// -->
+
+    <#if card == true>
+        </div>
+    </#if>
+</#macro>
+
+<#macro user user card=true>
+    <#if card == true>
+        <div class="card m-1 p-2 friend">
+    </#if>
+    <!-- CARD HEADER ///////////////////////////////////////////////////////////////// -->
+    <div class="d-flex">
+        <div class="imgmask">
+            <#if !user.image??>
+                <img src="${rc.getContextPath()}/static/defaults/user_image.png">
+            <#else>
+            <#-- CHANGE -->
+                <img src="${user.image}">
+            </#if>
+        </div>
+
+        <div class="d-flex flex-column w-100">
+            <a href="${rc.getContextPath()}/user/${user.id}"><b class="darkblue">${user.name} ${user.surname}</b></a>
+            <hr class="m-0">
+            <#if user.status??><h5 class="activegrey m-0">${user.status}</h5><#else><h5 class="activegrey m-0"><br></h5></#if>
+        </div>
+
+    </div>
+    <!-- CARD HEADER END////////////////////////////////////////////////////////////// -->
+
+    <#if card == true>
+        </div>
+    </#if>
+</#macro>
+
+<#macro message message>
+    <div class="d-flex">
+        <div class="imgmask">
+            <#if !message.author.image??>
+                <img src="${rc.getContextPath()}/static/defaults/user_image.png">
+            <#else>
+            <#-- CHANGE -->
+                <img src="${message.author.image}">
+            </#if>
+        </div>
+
+        <div class="d-flex flex-column w-100">
+            <a href="${rc.getContextPath()}/user/${message.author.id}"><b class="darkblue">${message.author.name} ${message.author.surname}</b></a>
+            <h5 class="m-0">${message.content}</h5>
+        </div>
+    </div>
 </#macro>

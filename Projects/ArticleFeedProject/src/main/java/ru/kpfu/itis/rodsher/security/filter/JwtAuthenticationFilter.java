@@ -19,9 +19,11 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
-        String token = request.getHeader("Authorization");
-        Authentication authentication = new JwtAuthentication(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        if(request.getRequestURI().contains("/rest/")) {
+            String token = request.getHeader("Authorization");
+            Authentication authentication = new JwtAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

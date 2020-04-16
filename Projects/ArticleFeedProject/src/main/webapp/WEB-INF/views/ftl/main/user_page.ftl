@@ -1,24 +1,17 @@
 <#import "*/page.ftl" as p>
-<@p.page title="Страница ${user.id} - ArticleFeed">
-    <@p.navbar active="user"/>
-<#--    <c:choose>-->
-<#--        <c:when test="${friendstatus.equals('YES')}">-->
-<#--            <c:import url="navbar.jsp">-->
-<#--                <c:param name="active" value="friends"/>-->
-<#--            </c:import>-->
-<#--        </c:when>-->
-<#--        <c:when test="${you != null}">-->
-<#--            <c:import url="navbar.jsp">-->
-<#--                <c:param name="active" value="user"/>-->
-<#--            </c:import>-->
-<#--        </c:when>-->
-<#--        <c:otherwise>-->
-<#--            <c:import url="navbar.jsp">-->
-<#--                <c:param name="active" value="search"/>-->
-<#--            </c:import>-->
-<#--        </c:otherwise>-->
-<#--    </c:choose>-->
-
+    <#if user.id == me.id>
+        <#assign title = "Моя страница">
+    <#else>
+        <#assign title = "Пользователь ${user.id}">
+    </#if>
+<@p.page title="${title} - ArticleFeed">
+    <#if friends?? && friends.status == "ACCEPTED">
+        <@p.navbar active="friends"/>
+    <#elseif user.id == me.id>
+        <@p.navbar active="user"/>
+    <#else>
+        <@p.navbar active="search"/>
+    </#if>
 
     <div class="d-flex flex-column m-2 wid mx-auto">
 
@@ -51,41 +44,58 @@
                 </div>
             </div>
 
-<#--            <c:if test="${friendstatus.equals('SENT')}">-->
-<#--                <hr class="mb-2 mt-0">-->
-<#--                <form method="get">-->
-<#--                    <button type="submit" name="friend" value="REMOVE" class="w-100 p-2 btn btnwhite"><b class="lightblue">Отменить заявку</b></button>-->
-<#--                </form>-->
-<#--            </c:if>-->
-<#--            <c:if test="${friendstatus.equals('YES')}">-->
-<#--                <hr class="mb-2 mt-0">-->
-<#--                <form method="get">-->
-<#--                    <button type="submit" name="friend" value="REMOVE" class="w-100 p-2 btn btnwhite"><b class="lightblue">Удалить из друзей</b></button>-->
-<#--                </form>-->
-<#--            </c:if>-->
-<#--            <c:if test="${friendstatus.equals('ACCEPT')}">-->
-<#--                <hr class="mb-2 mt-0">-->
-<#--                <form method="get">-->
-<#--                    <button type="submit" name="friend" value="ACCEPT" class="w-100 p-2 btn btnlight"><b>Принять заявку</b></button>-->
-<#--                </form>-->
-<#--            </c:if>-->
-<#--            <c:if test="${friendstatus.equals('ADDTOFRIENDS')}">-->
-<#--                <hr class="mb-2 mt-0">-->
-<#--                <form method="get">-->
-<#--                    <button type="submit" name="friend" value="ADD" class="mx-auto w-100 p-2 btn btnlight"><b>Добавить в друзья</b></button>-->
-<#--                </form>-->
-<#--            </c:if>-->
+
+            <#if friends?? && friends.status == "REQUESTED" && friends.userSender.id == me.id>
+                <hr class="mb-2 mt-0">
+                <form id="friendship" method="post" action="/friendship">
+                    <input type="hidden" name="friend_id" value="${user.id}">
+                    <input type="hidden" name="status" value="CANCEL">
+                    <button type="button" class="w-100 p-2 btn btnwhite" onclick="sendFriendship()"><b class="lightblue">Отменить заявку</b></button>
+                </form>
+            <#elseif friends?? && friends.status == "REQUESTED" && friends.userRecipient.id == me.id>
+                <hr class="mb-2 mt-0">
+                <form id="friendship" method="post" action="/friendship">
+                    <input type="hidden" name="friend_id" value="${user.id}">
+                    <input type="hidden" name="status" value="ACCEPT">
+                    <button type="button" class="w-100 p-2 btn btnlight" onclick="sendFriendship()"><b>Принять заявку</b></button>
+                </form>
+            <#elseif friends?? && friends.status == "ACCEPTED">
+                <hr class="mb-2 mt-0">
+                <form id="friendship" method="post" action="/friendship">
+                    <input type="hidden" name="friend_id" value="${user.id}">
+                    <input type="hidden" name="status" value="DELETE">
+                    <button type="button" class="w-100 p-2 btn btnwhite" onclick="sendFriendship()"><b class="lightblue">Удалить из друзей</b></button>
+                </form>
+            <#elseif user.id != me.id>
+                <hr class="mb-2 mt-0">
+                <form id="friendship" method="post" action="/friendship">
+                    <input type="hidden" name="friend_id" value="${user.id}">
+                    <input type="hidden" name="status" value="ADD">
+                    <button type="button" class="w-100 p-2 btn btnlight" onclick="sendFriendship()"><b>Добавить в друзья</b></button>
+                </form>
+            </#if>
+
+
+            <#if user.id != me.id>
+                <#if channelId??>
+                    <a class="btn p-2 my-2 w-100 btnlight" href="${rc.getContextPath()}/chat?ch=${channelId}"><b>Написать сообщение</b></a>
+                <#else>
+                    <a class="btn p-2 my-2 w-100 btnlight" href="${rc.getContextPath()}/user/${user.id}/create_chat"><b>Написать сообщение</b></a>
+                </#if>
+            </#if>
+
         </div>
 
-        <#if me??>
+        <#if user.id == me.id>
             <div class="card m-1 p-2">
                 <a href="${rc.getContextPath()}/add" class="mx-auto btn p-0"><i class="fas fa-plus iconstl align-self-center"></i></a>
             </div>
         </#if>
 
-<#--        <#if walls?size gt 0>-->
-            <#list walls as wall>
-                <@p.article wall=wall me=me/>
-            </#list>
-<#--        </#if>-->
+        <#list walls as wall>
+            <@p.article wall=wall me=me/>
+        </#list>
+    </div>
+
+    <script src="${rc.getContextPath()}/static/js/friends.js"></script>
 </@p.page>

@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-//        auth.authenticationProvider(authenticationProvider);
+        //        auth.authenticationProvider(authenticationProvider);
     }
 
     @Override
@@ -56,9 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-//                and()
-//                .antMatcher("/rest/**").addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+//        http.antMatcher("/rest/**").sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
 //                .authenticationProvider(jwtAuthenticationProvider);
 
         http.formLogin()

@@ -1,7 +1,7 @@
 <#macro form_message title footer_type footer_text button_href="">
 <#import "*/page.ftl" as p>
 <@p.page title=title>
-    <div class="d-flex flex-column m-2 justify-content-center min-vh-100 widwin mx-auto">
+    <div class="d-flex flex-column m-2 justify-content-center widwin mx-auto" style="height: 98vh">
         <div class="card text-center">
             <h4 class="cardhead activewhite"><b>ArticleFeed</b><i class="fas fa-rss pl-2 iconstl activewhite"></i></h4>
             <h4 class="cardcent"><#nested/></h4>

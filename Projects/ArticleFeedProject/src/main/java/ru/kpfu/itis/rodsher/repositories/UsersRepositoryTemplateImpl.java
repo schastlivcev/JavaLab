@@ -15,6 +15,7 @@ import ru.kpfu.itis.rodsher.models.User;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -97,5 +98,10 @@ public class UsersRepositoryTemplateImpl implements UsersRepository {
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<User> findByNameAndSurname(String name, String surname) {
+        return null;
     }
 }

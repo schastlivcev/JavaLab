@@ -8,12 +8,14 @@ import ru.kpfu.itis.rodsher.models.User;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Profile("jpa")
 public class UsersRepositoryJpaImpl implements UsersRepository {
     private static final String FIND_BY_EMAIL = "SELECT u FROM User u WHERE u.email = :email";
+    private static final String FIND_BY_NAME_AND_SURNAME = "SELECT u FROM User u WHERE lower(u.name) LIKE :name AND lower(u.surname) LIKE :surname OR lower(u.surname) LIKE :name";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -39,5 +41,13 @@ public class UsersRepositoryJpaImpl implements UsersRepository {
     @Transactional
     public Optional<User> findById(long id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+
+    @Override
+    public List<User> findByNameAndSurname(String name, String surname) {
+        return entityManager.createQuery(FIND_BY_NAME_AND_SURNAME, User.class)
+                .setParameter("name", "%" + name.toLowerCase() + "%")
+                .setParameter("surname", "%" + surname.toLowerCase() + "%")
+                .getResultList();
     }
 }
