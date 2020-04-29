@@ -32,10 +32,6 @@ public class UsersRepositoryTemplateImpl implements UsersRepository {
     private EntityLoader entityLoader;
 
     private RowMapper<User> userRowMapper = (row, rowNumber) -> {
-        Long image = row.getLong("image");
-        if(image == 0) {
-            image = null;
-        }
         return User.builder()
                 .id(row.getLong("id"))
                 .email(row.getString("email"))
@@ -46,7 +42,7 @@ public class UsersRepositoryTemplateImpl implements UsersRepository {
                 .birthday(row.getDate("birthday"))
                 .country(entityLoader.getCountryById(row.getInt("country_id")))
                 .status(row.getString("status"))
-                .image(image)
+                .image(row.getString("image"))
                 .role(Role.valueOf(row.getString("role")))
                 .verified(row.getBoolean("verified"))
                 .createdAt(row.getTimestamp("created_at"))
@@ -71,7 +67,7 @@ public class UsersRepositoryTemplateImpl implements UsersRepository {
             if (user.getImage() == null) {
                 statement.setNull(9, Types.BIGINT);
             } else {
-                statement.setLong(9, user.getImage());
+                statement.setString(9, user.getImage());
             }
             statement.setString(10, user.getRole().toString());
             statement.setBoolean(11, user.getVerified());
@@ -103,5 +99,10 @@ public class UsersRepositoryTemplateImpl implements UsersRepository {
     @Override
     public List<User> findByNameAndSurname(String name, String surname) {
         return null;
+    }
+
+    @Override
+    public boolean updateInfo(User user) {
+        return false;
     }
 }

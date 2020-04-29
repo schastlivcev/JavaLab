@@ -17,6 +17,11 @@ public class WebDto implements Dto {
         map.put(key, value);
     }
 
+    public WebDto(Status status, Map<String, Object> map) {
+        this.map = new HashMap<>(map);
+        this.map.put("#status", status);
+    }
+
     @Override
     public Status getStatus() {
         return (Status) map.get("#status");

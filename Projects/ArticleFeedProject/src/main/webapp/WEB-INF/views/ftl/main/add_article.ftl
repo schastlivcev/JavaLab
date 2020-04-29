@@ -65,7 +65,7 @@
             <!-- FOOTER////////////////////////////////////////////////////////// -->
 
             <div class="alert alert-danger m-0 mb-2 p-2 text-center pagealert" id="send_error" role="alert">
-                <h5 class="m-0">Не удалось опубликовать<br>Пожалуйста, повторите попытку</h5>
+                <h5 class="m-0">Не удалось опубликовать. Пожалуйста, повторите попытку</h5>
             </div>
             <div class="alert alert-danger m-0 mb-2 p-2 text-center pagealert" id="page_empty" role="alert">
                 <h5 class="m-0">Невозможно опубликовать, если поля ввода пустые</h5>

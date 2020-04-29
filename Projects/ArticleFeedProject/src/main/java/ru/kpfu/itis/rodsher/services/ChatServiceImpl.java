@@ -27,7 +27,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Dto createChannel(String name) {
-        Long id = channelsRepository.save(Channel.builder().name(name).build());
+        Long id = channelsRepository.save(Channel.builder().name(name).dialogue(true).build());
         return new WebDto(Status.CHANNEL_ADD_SUCCESS, "channel_id", id);
     }
 
@@ -95,5 +95,15 @@ public class ChatServiceImpl implements ChatService {
     public Dto getUsersForChannel(Long channelId) {
         return new WebDto(Status.CHANNEL_LOAD_USERS_SUCCESS,
                 "users", channelsRepository.findUsersForChannelId(channelId));
+    }
+
+    @Override
+    public Dto loadChannelsByUserId(Long userId) {
+        return new WebDto(Status.CHANNEL_LOAD_BY_USER_ID_SUCCESS, "channels", channelsRepository.findChannelsByUserId(userId));
+    }
+
+    @Override
+    public Dto loadLastChannelMessagesForUserId(Long userId) {
+        return new WebDto(Status.MESSAGE_LOAD_LAST_FOR_USER_ID_CHANNELS_SUCCESS, "messages", messagesRepository.findLastMessagesForChannelsByUserId(userId));
     }
 }

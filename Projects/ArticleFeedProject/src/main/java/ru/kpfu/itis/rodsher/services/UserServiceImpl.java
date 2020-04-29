@@ -65,4 +65,16 @@ public class UserServiceImpl implements UserService {
         }
         return new WebDto(Status.FRIENDSHIP_EMPTY);
     }
+
+    @Override
+    public Dto updateUserInfo(User user) {
+        if(user.getId() == null) {
+            return new WebDto(Status.USER_UPDATE_ERROR);
+        }
+        boolean updated = usersRepository.updateInfo(user);
+        if(updated) {
+            return new WebDto(Status.USER_UPDATE_SUCCESS);
+        }
+        return new WebDto(Status.USER_UPDATE_ERROR);
+    }
 }

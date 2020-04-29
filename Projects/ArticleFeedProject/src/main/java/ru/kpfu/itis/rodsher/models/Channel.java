@@ -21,10 +21,12 @@ public class Channel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private String name;
-
+    @Column(columnDefinition = "text")
+    private String image;
+    @Column(name = "dialogue")
+    private boolean dialogue;
     @Column
     @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp

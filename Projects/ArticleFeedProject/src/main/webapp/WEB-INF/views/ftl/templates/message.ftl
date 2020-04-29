@@ -1,2 +1,4 @@
 <#import "*/page.ftl" as p>
-<@p.message message=message/>
+<div id="chat_message" class="m-2">
+    <@p.message message=message/>
+</div>

@@ -8,15 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.rodsher.dto.Dto;
 import ru.kpfu.itis.rodsher.dto.Status;
-import ru.kpfu.itis.rodsher.models.Channel;
-import ru.kpfu.itis.rodsher.models.Friends;
-import ru.kpfu.itis.rodsher.models.FriendsStatus;
-import ru.kpfu.itis.rodsher.models.User;
-import ru.kpfu.itis.rodsher.repositories.ChannelsRepository;
-import ru.kpfu.itis.rodsher.repositories.FriendsRepository;
 import ru.kpfu.itis.rodsher.security.details.UserDetailsImpl;
 import ru.kpfu.itis.rodsher.services.AuthService;
-import ru.kpfu.itis.rodsher.services.ChatService;
 import ru.kpfu.itis.rodsher.services.ContentFiller;
 
 import java.util.List;
@@ -31,6 +24,7 @@ public class SignUpController {
     @Autowired
     private ContentFiller contentFiller;
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping
     public String getForm(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelMap map) {
         if(userDetails != null) {
@@ -45,8 +39,8 @@ public class SignUpController {
     @PostMapping
     public String signUp(@RequestParam Map<String, String> params, ModelMap map) {
         Dto dto = authService.signUpFromMap(params);
-        if(dto.getStatus().equals(Status.USER_REG_SUCCESS)) {
-            return "auth/sign_up_success";
+        if(dto.getStatus().equals(Status.USER_SIGN_UP_SUCCESS)) {
+            return "redirect:/signUp/success";
         }
         else {
             map.put("email", params.get("email"));
@@ -60,5 +54,14 @@ public class SignUpController {
             map.put("errors", (List<String>) dto.get("errors"));
             return "auth/sign_up";
         }
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @GetMapping("/success")
+    public String signUpSuccess(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelMap map) {
+        if(userDetails != null) {
+            return "redirect:/user";
+        }
+        return "auth/sign_up_success";
     }
 }

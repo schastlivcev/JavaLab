@@ -37,10 +37,12 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
-    @Column
+    @Column(length = 60)
     private String status;
     @Column
-    private Long image;
+    private String bio;
+    @Column(columnDefinition = "text")
+    private String image;
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;

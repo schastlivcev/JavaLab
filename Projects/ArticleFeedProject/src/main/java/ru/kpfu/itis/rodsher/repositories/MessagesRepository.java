@@ -10,4 +10,5 @@ public interface MessagesRepository {
     Long save(Message message);
     List<Message> findMessagesByChannelId(Long channelId);
     Optional<Message> find(Long id);
+    List<Message> findLastMessagesForChannelsByUserId(Long userId);
 }

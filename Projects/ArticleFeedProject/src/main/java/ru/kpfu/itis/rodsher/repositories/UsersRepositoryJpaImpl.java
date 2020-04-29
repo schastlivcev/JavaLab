@@ -44,10 +44,24 @@ public class UsersRepositoryJpaImpl implements UsersRepository {
     }
 
     @Override
+    @Transactional
     public List<User> findByNameAndSurname(String name, String surname) {
         return entityManager.createQuery(FIND_BY_NAME_AND_SURNAME, User.class)
                 .setParameter("name", "%" + name.toLowerCase() + "%")
                 .setParameter("surname", "%" + surname.toLowerCase() + "%")
                 .getResultList();
+    }
+
+    @Override
+    @Transactional
+    public boolean updateInfo(User user) {
+        if(user.getId() == null) {
+            return false;
+        }
+        if(entityManager.find(User.class, user.getId()) == null) {
+            return false;
+        }
+        entityManager.merge(user);
+        return true;
     }
 }

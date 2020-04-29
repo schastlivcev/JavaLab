@@ -14,6 +14,11 @@ function scrollToBottom() {
 }
 
 function sendMessage() {
+    if($("#message_content").val().trim() === "") {
+        $("#message_content").val("");
+        return false;
+    }
+
     let body = {
         content: $("#message_content").val(),
         page_id: $("#page_id").val()

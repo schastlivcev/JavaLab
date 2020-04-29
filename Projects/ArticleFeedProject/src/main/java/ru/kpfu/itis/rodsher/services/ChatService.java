@@ -12,4 +12,6 @@ public interface ChatService {
     Dto getMessage(Long messageId);
     Dto checkIfChannelExistsForUsers(Long userId1, Long userId2);
     Dto getUsersForChannel(Long channelId);
+    Dto loadChannelsByUserId(Long userId);
+    Dto loadLastChannelMessagesForUserId(Long userId);
 }

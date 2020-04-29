@@ -68,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
             Optional<Country> countryOptional = countriesRepository.findByNameRu(c);
             if(!countryOptional.isPresent()) {
                 errors.add("DATA_UNACCEPTABLE");
-                return new WebDto(Status.USER_REG_ERROR, "errors", errors);
+                return new WebDto(Status.USER_SIGN_UP_ERROR, "errors", errors);
             }
             Country country = countryOptional.get();
             Map<String, Object> objectMap = new HashMap<>(formAttributes);
@@ -79,7 +79,7 @@ public class AuthServiceImpl implements AuthService {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             errors.add("DATA_UNACCEPTABLE");
-            return new WebDto(Status.USER_REG_ERROR, "errors", errors);
+            return new WebDto(Status.USER_SIGN_UP_ERROR, "errors", errors);
         }
     }
 
@@ -97,14 +97,14 @@ public class AuthServiceImpl implements AuthService {
                     .role(Role.USER)
                     .verified(true)
                     .build());
-            return new WebDto(Status.USER_REG_SUCCESS);
+            return new WebDto(Status.USER_SIGN_UP_SUCCESS);
         } else {
-            return new WebDto(Status.USER_REG_ERROR, "errors", errors);
+            return new WebDto(Status.USER_SIGN_UP_ERROR, "errors", errors);
         }
     }
 
     private void verifySignUpForm(RegInfo regInfo, List<String> errors) {
-        if(regInfo.getEmail() == null || regInfo.getEmail().equals("")) {
+        if(regInfo.getEmail() == null || regInfo.getEmail().trim().equals("")) {
             errors.add("EMAIL_EMPTY");
         } else if(!regInfo.getEmail().matches(".+@.+\\..+") || !regInfo.getEmail().trim().equals(regInfo.getEmail())) {
             errors.add("EMAIL_UNACCEPTABLE");
@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
             errors.add("EMAIL_UNAVAILABLE");
         }
 
-        if(regInfo.getPassword() == null || regInfo.getPassword().equals("")) {
+        if(regInfo.getPassword() == null || regInfo.getPassword().trim().equals("")) {
             errors.add("PASSWORD_EMPTY");
         } else if(!regInfo.getPassword().trim().equals(regInfo.getPassword())) {
             errors.add("PASSWORD_UNACCEPTABLE");
@@ -124,13 +124,13 @@ public class AuthServiceImpl implements AuthService {
             errors.add("PASSWORD_MISMATCH");
         }
 
-        if(regInfo.getName() == null || regInfo.getName().equals("")) {
+        if(regInfo.getName() == null || regInfo.getName().trim().equals("")) {
             errors.add("NAME_EMPTY");
         } else if(!regInfo.getName().trim().equals(regInfo.getName()) || regInfo.getName().length() < 1 || regInfo.getName().length() > 30) {
             errors.add("NAME_UNACCEPTABLE");
         }
 
-        if(regInfo.getSurname() == null || regInfo.getSurname().equals("")) {
+        if(regInfo.getSurname() == null || regInfo.getSurname().trim().equals("")) {
             errors.add("SURNAME_EMPTY");
         } else if(!regInfo.getSurname().trim().equals(regInfo.getSurname()) || regInfo.getSurname().length() < 1 || regInfo.getSurname().length() > 60) {
             errors.add("SURNAME_UNACCEPTABLE");

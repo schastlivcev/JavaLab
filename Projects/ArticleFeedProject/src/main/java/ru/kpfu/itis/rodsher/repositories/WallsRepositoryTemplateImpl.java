@@ -60,7 +60,7 @@ public class WallsRepositoryTemplateImpl implements WallsRepository {
     }
 
     @Override
-    public List<Wall> findByUserId(Long userId) {
+    public List<Wall> findByUserIdWithReplies(Long userId) {
         return jdbcTemplate.query(SQL_SELECT_BY_USER_ID, new Object[]{userId}, articleRowMapper);
     }
 
@@ -79,5 +79,30 @@ public class WallsRepositoryTemplateImpl implements WallsRepository {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Wall> findByUserIdBookmarks(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Wall> findByUserIdReplies(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Wall> findByUserIdAndSourceWallId(Long userId, Long sourceWallId) {
+        return null;
+    }
+
+    @Override
+    public List<Wall> findByUserIdAndArticleId(Long userId, Long articleId) {
+        return null;
+    }
+
+    @Override
+    public List<Wall> findByUserFriends(Long userId) {
+        return null;
     }
 }

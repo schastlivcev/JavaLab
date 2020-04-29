@@ -13,4 +13,5 @@ public interface UserService {
     Dto updateFriendship(Long userSenderId, Long userRecipientId, FriendsStatus status);
     Dto removeFriendship(Long userSenderId, Long userRecipientId);
     Dto checkFriendship(Long userId1, Long userId2);
+    Dto updateUserInfo(User user);
 }

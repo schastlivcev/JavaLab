@@ -5,10 +5,10 @@
 
         <div class="card mt-1 p-2 d-flex justify-content-between" style="height: 92vh">
 
-            <h4 class="mt-0 mb-2">Диалог с ${user.name} ${user.surname}</h4>
+            <h4 class="mt-0 mb-2 activegrey">Диалог с <a href="${rc.getContextPath()}/user/${user.id}"><b style="color: black">${user.name} ${user.surname}</b></a></h4>
             <hr class="mb-2 mt-0">
 
-            <div id="chat_window" class="my-2" style="overflow-y: scroll; display: flex; flex: 1 1 0; flex-flow: column">
+            <div id="chat_window" class="my-2" style="overflow-y: scroll; word-break: break-word; display: flex; flex: 1 1 0; flex-flow: column">
                 <#if !messages?? || messages?size == 0>
                     <h4 class="mb-2" id="chat_empty">У вас пока нет сообщений</h4>
                 <#else>

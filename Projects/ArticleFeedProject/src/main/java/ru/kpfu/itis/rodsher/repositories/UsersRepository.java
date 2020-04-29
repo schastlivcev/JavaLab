@@ -10,4 +10,5 @@ public interface UsersRepository {
     Optional<User> findByEmail(String email);
     Optional<User> findById(long id);
     List<User> findByNameAndSurname(String name, String surname);
+    boolean updateInfo(User user);
 }

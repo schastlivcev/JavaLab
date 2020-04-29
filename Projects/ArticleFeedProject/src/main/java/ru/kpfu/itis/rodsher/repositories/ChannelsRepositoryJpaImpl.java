@@ -57,6 +57,7 @@ public class ChannelsRepositoryJpaImpl implements ChannelsRepository {
     }
 
     @Override
+    @Transactional
     public List<User> findUsersForChannelId(Long channelId) {
         List<ChannelsToUsers> channelsToUsers = entityManager.createQuery(FIND_BY_CHANNEL_ID, ChannelsToUsers.class).setParameter("id", channelId).getResultList();
         List<User> users = new ArrayList<>();

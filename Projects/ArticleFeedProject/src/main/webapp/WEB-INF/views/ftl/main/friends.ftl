@@ -28,7 +28,9 @@
                 </div>
                 <#list friends as friend>
                     <#if friend.status == "REQUESTED" && me.id != friend.userSender.id>
-                        <@p.friend_card friends=friend me=me card=false/>
+                        <div class="mt-1">
+                            <@p.friend_card friends=friend me=me card=false/>
+                        </div>
                     </#if>
                 </#list>
             </div>
@@ -41,7 +43,9 @@
                 </div>
                 <#list friends as friend>
                     <#if friend.status == "REQUESTED" && me.id == friend.userSender.id>
-                        <@p.friend_card friends=friend me=me card=false/>
+                        <div class="mt-1">
+                            <@p.friend_card friends=friend me=me card=false/>
+                        </div>
                     </#if>
                 </#list>
             </div>

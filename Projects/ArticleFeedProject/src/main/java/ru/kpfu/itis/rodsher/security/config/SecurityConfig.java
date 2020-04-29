@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/signIn")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/user")
+                .defaultSuccessUrl("/")
                 .failureUrl("/signIn?error");
 //                .failureHandler(new AuthenticationFailureHandlerImpl(freeMarkerConfig));
 

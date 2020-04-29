@@ -23,12 +23,10 @@ public class ChannelsToUsers {
     @ManyToOne
     @JoinColumn(name = "channel_id")
     private Channel channel;
-
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @Column(name = "created_at")
     @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp

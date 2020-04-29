@@ -9,12 +9,20 @@
 
     <context:component-scan base-package="ru.kpfu.itis.rodsher"/>
 
-    <mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="myConversionService">
         <mvc:argument-resolvers>
             <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver" />
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     <mvc:resources mapping="/static/**" location="/static/" />
+
+    <bean id="myConversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="ru.kpfu.itis.rodsher.converters.StringIdToWallConverter"/>
+            </set>
+        </property>
+    </bean>
 
     <!-- FreeMarker configuration -->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

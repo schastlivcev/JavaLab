@@ -7,7 +7,12 @@ import java.util.Optional;
 
 public interface WallsRepository {
     Long save(Wall wall);
-    List<Wall> findByUserId(Long userId);
+    List<Wall> findByUserIdWithReplies(Long userId);
+    List<Wall> findByUserIdBookmarks(Long userId);
+    List<Wall> findByUserIdReplies(Long userId);
+    List<Wall> findByUserIdAndSourceWallId(Long userId, Long sourceWallId);
+    List<Wall> findByUserIdAndArticleId(Long userId, Long articleId);
     Optional<Wall> findById(Long id);
+    List<Wall> findByUserFriends(Long userId);
     boolean remove(Long id);
 }

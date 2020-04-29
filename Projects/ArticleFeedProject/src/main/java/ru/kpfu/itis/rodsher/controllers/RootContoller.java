@@ -15,7 +15,7 @@ public class RootContoller {
     @GetMapping
     public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
-            return "redirect:/user";
+            return "redirect:/feed";
         }
         return "auth/welcome";
     }
