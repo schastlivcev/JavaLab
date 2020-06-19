@@ -71,8 +71,12 @@
       <artifactId>spring-security-config</artifactId>
       <version>5.3.0.RELEASE</version>
     </dependency>
-
-<!-- Other dependencies -->
+  <!-- Other dependencies -->
+    <dependency>
+        <groupId>com.maxmind.geoip2</groupId>
+        <artifactId>geoip2</artifactId>
+        <version>2.13.1</version>
+    </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
