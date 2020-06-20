@@ -22,7 +22,6 @@ public class FriendsController {
     @GetMapping("/friends")
     public String getFriends(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelMap map) {
         Dto dto = userService.loadFriends(userDetails.getId());
-        System.out.println(dto.get("friends"));
         map.put("friends",(List<Friends>) dto.get("friends"));
         map.put("me", userDetails.getUser());
         return "main/friends";

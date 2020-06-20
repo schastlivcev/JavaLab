@@ -2,6 +2,7 @@ package ru.kpfu.itis.rodsher.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,10 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -39,6 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("jwtAuthenticationProvider")
     private AuthenticationProvider jwtAuthenticationProvider;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
 
     @Autowired
     @Override
@@ -56,9 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-//        http.antMatcher("/rest/**").sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
-//                .authenticationProvider(jwtAuthenticationProvider);
+        http.antMatcher("/rest/**").sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+                .authenticationProvider(jwtAuthenticationProvider);
 
         http.formLogin()
                 .loginPage("/signIn")
@@ -68,6 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/signIn?error");
 //                .failureHandler(new AuthenticationFailureHandlerImpl(freeMarkerConfig));
 
-        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/signOut")).logoutSuccessUrl("/");
+        http.rememberMe()
+                .alwaysRemember(true)
+                .rememberMeParameter("remember-me")
+                .tokenRepository(persistentTokenRepository());
+
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/signOut")).deleteCookies("JSESSIONID", "remember-me").logoutSuccessUrl("/");
     }
 }
