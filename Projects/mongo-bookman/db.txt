@@ -1,0 +1,109 @@
+use bookman;
+
+db.users.insert(
+    {
+        email: "mishajava@mail.ru",
+        name: "Михаил",
+        surname: "Счастливцев",
+        middleName: "Александрович"
+    }
+    );
+
+db.users.insert(
+    {
+        name:"Александр",
+        surname:"Пушкин",
+        middleName:"Сергеевич",
+        birthDate: new Date("1799-06-06"),
+        deathDate: new Date("1837-01-29"),
+        epoch: "Золотой Век"
+    }
+    );
+
+db.users.insert(
+    {
+        name:"Стивен",
+        surname:"Кинг",
+        middleName:"Эдвин",
+        birthDate: Date("1947-09-21"),
+        nickname: "Король ужасов"
+    }
+    );
+
+db.genres.insert(
+    {
+        title: "Ужасы"
+    }
+    );
+
+db.genres.insertMany([
+    {
+        title: "Мистика"
+    },
+    {
+        title: "Триллер"
+    }
+    ]);
+
+db.genres.insert(
+    {
+        title: "Детектив",
+        description: "Истории, которые необходимо распутать"
+    }
+    );
+
+db.users.update({surname: "Кинг"}, {
+    $set: {
+        genres: [
+            ObjectId("5fb01139995e8e2d644c4fa3"),
+            ObjectId("5fb011ac995e8e2d644c4fa5"),
+            ObjectId("5fb011ac995e8e2d644c4fa6")
+        ]
+    }
+});
+
+
+db.createCollection("books");
+
+db.books.insert(
+    {
+        title: "Заметки по MongoDB",
+        author: ObjectId("5fb00d8f995e8e2d644c4f9d")
+    }
+    );
+
+db.books.insert(
+    {
+        title: "Оно",
+        published: true,
+        publicationDate: ISODate("1986-09-15"),
+        type: "Роман",
+        genres: [ObjectId("5fb01139995e8e2d644c4fa3"),
+            ObjectId("5fb011ac995e8e2d644c4fa5")],
+        isbn: "978-0-670-81302-5"
+    }
+    );
+
+db.books.update({_id: ObjectId("5fb01aa8995e8e2d644c4fb0")}, {
+   $set: {
+       author: ObjectId("5fb010f0995e8e2d644c4fa1")
+   }
+});
+
+db.chapters.insert(
+    {
+        title: "Первая глава",
+        content: "Жили были, да приплыли\nПродолжение в следующей главе",
+        index: "1",
+        book: ObjectId("5fb01904995e8e2d644c4fae")
+    }
+    );
+
+db.chapters.insert(
+    {
+        index: "2.1",
+        content: "А больше нечего сказать",
+        comment: "Думал два дня, но больше, реально, ниче не пришло в голову",
+        book: ObjectId("5fb01904995e8e2d644c4fae")
+    }
+    );
