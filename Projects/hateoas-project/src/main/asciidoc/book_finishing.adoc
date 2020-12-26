@@ -1,0 +1,15 @@
+== Завершение книги
+
+Установка книге значения поля finished=*true*
+
+.request
+
+include::{snippets}\book_finish\http-request.adoc[]
+
+.response
+
+include::{snippets}\book_finish\http-response.adoc[]
+
+.response-fields
+
+include::{snippets}\book_finish\response-fields.adoc[]

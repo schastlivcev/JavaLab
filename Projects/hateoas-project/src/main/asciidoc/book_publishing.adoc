@@ -1,0 +1,15 @@
+== Публикация книги
+
+Установка книге значения поля published=*true*
+
+.request
+
+include::{snippets}\book_publish\http-request.adoc[]
+
+.response
+
+include::{snippets}\book_publish\http-response.adoc[]
+
+.response-fields
+
+include::{snippets}\book_publish\response-fields.adoc[]
